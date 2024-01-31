@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AdminScreen from './Screens/AdminScreen';
 import LoginScreen from './Screens/LoginScreen';
 import LoadingScreen from './Screens/LoadingScreen';
+import NotificationDetailScreen from './Screens/BottomNav/NotificationDetailScreen';
+import HistoryDetailScreen from './Screens/BottomNav/HistoryDetailScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +17,11 @@ const App = () => {
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="Admin" component={AdminScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+
+
+
+        <Stack.Screen name="NotificationDetail" component={NotificationDetailScreen} />
+        <Stack.Screen name="HistoryDetail" component={HistoryDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

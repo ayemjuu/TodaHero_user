@@ -89,7 +89,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import firebase from 'firebase/compat';
 import 'firebase/firestore';
 
@@ -118,18 +118,21 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home Screen</Text>
-
-      {/* Display Queuing Lists */}
-      <FlatList
-        data={queuingLists}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.listItem}>
-            <Text>{` plate number: ${item.plateNumber}`}</Text>
-          </View>
-        )}
-      />
+      <Image source={require('../../assets/logo.png')} style={styles.logo} />
+        <View style={styles.seccontainer}>
+        
+        <Text style={styles.text}> AVAILABLE DRIVERS:</Text>
+        {/* Display Queuing Lists */}
+        <FlatList
+          data={queuingLists}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.listItem}>
+              <Text style={styles.textItem}>{` Plate number: ${item.plateNumber}`}</Text>
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 };
@@ -139,17 +142,40 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#B4CDE6',
+    backgroundColor: 'white',
+  },
+  seccontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'pink',
+    height: 500,
+    width: 300,
+    marginTop: -30,
+    borderRadius:10
   },
   text: {
-    fontSize: 20,
-    marginBottom: 10,
+    fontSize: 30,
+    marginTop:20,
+    marginBottom: 30,
   },
   listItem: {
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#CCCCCC',
+   
+    
+
   },
+  logo: {
+    width: 210,
+    height: 210,
+    marginBottom: 10,
+    marginTop: -50,
+  },
+
+  textItem:{
+    fontSize:18
+  }
 });
 
 export default HomeScreen;
