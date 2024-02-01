@@ -285,18 +285,35 @@ const NotificationScreen = () => {
   );
 };
 
+// const formatTimestamp = timestamp => {
+//   if (!timestamp) return null;
+//   if (timestamp.toDate) {
+//     const date = timestamp.toDate();
+//     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+//   } else if (timestamp instanceof Date) {
+//     return timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+//   } else {
+//     return String(timestamp);
+//   }
+// };
 const formatTimestamp = timestamp => {
   if (!timestamp) return null;
-  if (timestamp.toDate) {
-    const date = timestamp.toDate();
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-  } else if (timestamp instanceof Date) {
-    return timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+  const acceptedDate = timestamp.toDate ? timestamp.toDate() : timestamp;
+
+  const today = new Date();
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const acceptedDay = new Date(acceptedDate.getFullYear(), acceptedDate.getMonth(), acceptedDate.getDate());
+
+  if (acceptedDay < todayDate) {
+    // If accepted time is not today, return day name
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return days[acceptedDay.getDay()];
   } else {
-    return String(timestamp);
+    // If accepted time is today, return time
+    return acceptedDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
   }
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

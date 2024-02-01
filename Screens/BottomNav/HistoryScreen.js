@@ -155,15 +155,34 @@ const HistoryScreen = () => {
   );
 };
 
+// const formatTimestamp = timestamp => {
+//   if (!timestamp) return null;
+//   if (timestamp.toDate) {
+//     const date = timestamp.toDate();
+//     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+//   } else if (timestamp instanceof Date) {
+//     return timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+//   } else {
+//     return String(timestamp);
+//   }
+// };
+
 const formatTimestamp = timestamp => {
   if (!timestamp) return null;
-  if (timestamp.toDate) {
-    const date = timestamp.toDate();
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-  } else if (timestamp instanceof Date) {
-    return timestamp.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+  const rideEndedDate = timestamp.toDate ? timestamp.toDate() : timestamp;
+
+  const today = new Date();
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const rideEndedDay = new Date(rideEndedDate.getFullYear(), rideEndedDate.getMonth(), rideEndedDate.getDate());
+
+  if (rideEndedDay < todayDate) {
+    // If ride ended time is not today, return day name
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return days[rideEndedDay.getDay()];
   } else {
-    return String(timestamp);
+    // If ride ended time is today, return time
+    return rideEndedDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
   }
 };
 
