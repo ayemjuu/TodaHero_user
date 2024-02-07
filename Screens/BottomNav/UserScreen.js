@@ -173,10 +173,10 @@ const UserScreen = () => {
     } else {
       // If no phone number is present, set default userData
       setUserData({
-        name: 'Guest',
-        username: 'guest',
-        contactNumber: 'N/A',
-        address: 'N/A'
+        name: 'Kyle Vincent Manuel',
+        username: 'kakak',
+        contactNumber: '+639185299893',
+        address: 'Sa bundok'
       });
     }
   }, []);

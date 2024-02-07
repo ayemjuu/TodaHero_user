@@ -139,53 +139,76 @@ const NotificationScreen = () => {
   const [acceptedRequests, setAcceptedRequests] = useState([]);
   const [userData, setUserData] = useState(null);
 
-
- 
-  
-
+  //DEBUGGING TO
   // useEffect(() => {
-
-
   //   const fetchUserData = async () => {
-  //     const contactNumber = firebase.auth().currentUser.phoneNumber; 
-  //     const usersCollection = firebase.firestore().collection('Users');
+  //     const currentUser = firebase.auth().currentUser;
 
-  //     try {
-  //       const querySnapshot = await usersCollection.where('contactNumber', '==', contactNumber).get();
-  //       if (!querySnapshot.empty) {
-  //         const user = querySnapshot.docs[0].data();
-  //         setUserData(user);
-  //         console.log('NNCurrently logged-in user:', user.name); // Log the currently logged-in user's name
+  //     if (currentUser) {
+  //       const contactNumber = currentUser.phoneNumber;
+  //       const usersCollection = firebase.firestore().collection('Users');
+
+  //       try {
+  //         const querySnapshot = await usersCollection.where('contactNumber', '==', contactNumber).get();
+  //         if (!querySnapshot.empty) {
+  //           const user = querySnapshot.docs[0].data();
+  //           setUserData(user);
+
+  //           const unsubscribe = firebase.firestore().collection('acceptedRequest')
+  //             .where('requestBy', '==', user.name)
+  //             .onSnapshot(snapshot => {
+  //               const data = [];
+  //               snapshot.forEach(doc => {
+  //                 const requestData = doc.data();
+  //                 data.push({ id: doc.id, ...requestData });
+  //               });
+  //               data.sort((a, b) => b.timeAccepted - a.timeAccepted);
+  //               setAcceptedRequests(data);
+  //             });
+
+  //           return () => {
+  //             unsubscribe();
+  //           };
+  //         }
+  //       } catch (error) {
+  //         console.error('Error fetching user data:', error);
   //       }
-  //     } catch (error) {
-  //       console.error('Error fetching user data:', error);
+  //     } else {
+  //       // If user is not logged in with a phone number, provide a default or placeholder number
+  //       const defaultPhoneNumber = '+639496838577'; // Replace with your desired default number
+
+  //       try {
+  //         const querySnapshot = await firebase.firestore().collection('Users').where('contactNumber', '==', defaultPhoneNumber).get();
+  //         if (!querySnapshot.empty) {
+  //           const user = querySnapshot.docs[0].data();
+  //           setUserData(user);
+
+  //           const unsubscribe = firebase.firestore().collection('acceptedRequest')
+  //             .where('requestBy', '==', user.name)
+  //             .onSnapshot(snapshot => {
+  //               const data = [];
+  //               snapshot.forEach(doc => {
+  //                 const requestData = doc.data();
+  //                 data.push({ id: doc.id, ...requestData });
+  //               });
+  //               data.sort((a, b) => b.timeAccepted - a.timeAccepted);
+  //               setAcceptedRequests(data);
+  //             });
+
+  //           return () => {
+  //             unsubscribe();
+  //           };
+  //         }
+  //       } catch (error) {
+  //         console.error('Error fetching user data:', error);
+  //       }
   //     }
   //   };
 
-  //   fetchUserData(); 
+  //   fetchUserData();
+  // }, []);
 
-
-  //   const unsubscribe = firebase.firestore().collection('acceptedRequest').onSnapshot(snapshot => {
-  //     const data = [];
-  //     snapshot.forEach(doc => {
-  //       // data.push({ id: doc.id, ...doc.data() });
-  //       const requestData = doc.data();
-  //       // Check if the item name matches the currently logged-in user's name
-  //       if (userData && requestData.itemName === userData.name) {
-  //         data.push({ id: doc.id, ...requestData });
-  //       }
-
-  //     });
-  //     console.log(data);
-  //     setAcceptedRequests(data);
-  //   });
-  
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, [userData]);
-
-
+  //eto yung original sa baba
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -228,24 +251,26 @@ const NotificationScreen = () => {
     fetchUserData(); 
   }, []);
 
+//original ito sa taas ah
 
-  // const handleItemClick = (id) => {
-  //   // Navigate to NotificationDetailScreen with the ID parameter
-  //   navigation.navigate('NotificationDetail', { requestId: id });
-  // };
 
-  const handleItemClick = async (id) => {
-    try {
-      // Update the document in the "acceptedRequest" collection with the current timestamp
-      await firebase.firestore().collection('acceptedRequest').doc(id).update({
-        rideEnded: firebase.firestore.FieldValue.serverTimestamp() // Server timestamp to ensure accuracy
-      });
-      // Navigate to NotificationDetailScreen with the ID parameter
-      navigation.navigate('NotificationDetail', { requestId: id });
-    } catch (error) {
-      console.error('Error updating timeClicked:', error);
-    }
+  const handleItemClick = (id) => {
+    // Navigate to NotificationDetailScreen with the ID parameter
+    navigation.navigate('NotificationDetail', { requestId: id });
   };
+
+  // const handleItemClick = async (id) => {
+  //   try {
+  //     // Update the document in the "acceptedRequest" collection with the current timestamp
+  //     await firebase.firestore().collection('acceptedRequest').doc(id).update({
+  //       rideEnded: firebase.firestore.FieldValue.serverTimestamp() // Server timestamp to ensure accuracy
+  //     });
+  //     // Navigate to NotificationDetailScreen with the ID parameter
+  //     navigation.navigate('NotificationDetail', { requestId: id });
+  //   } catch (error) {
+  //     console.error('Error updating timeClicked:', error);
+  //   }
+  // };
 
  
   return (
@@ -270,9 +295,11 @@ const NotificationScreen = () => {
                   <Text style={styles.time}>{formatTimestamp(request.timeAccepted)}</Text>
              </View>
 
-              <View style={styles.indicator} />
+              {/* <View style={styles.indicator} /> */}
 
-              
+              {!request.successful && (
+                  <View style={styles.indicator} />
+                )}
            
             
 

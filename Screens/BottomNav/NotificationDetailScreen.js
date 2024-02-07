@@ -281,11 +281,14 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import { firebase } from '../../config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+
 
 const NotificationDetailScreen = ({ route }) => {
   const { requestId } = route.params;
   const [requestData, setRequestData] = useState(null);
   const [successfulButtonClicked, setSuccessfulButtonClicked] = useState(false);
+  const navigation = useNavigation();
 
 
 
@@ -337,15 +340,68 @@ const NotificationDetailScreen = ({ route }) => {
     }
   };
 
+  // const saveToHistory = async () => {
+  //   try {
+  //     await firebase.firestore().collection('history').doc(requestId).set(requestData);
+  //     console.log("Ride details saved to history collection.");
+  //     await AsyncStorage.setItem(`successfulButtonClicked_${requestId}`, 'true'); // Set flag in AsyncStorage with a unique key
+  //     setSuccessfulButtonClicked(true); // Set buttonClicked state to true after successful save
+  //     // Alert when the successful button is clicked
+  //     Alert.alert("Success", "Your ride is officially ended.");
+      
+  //   } catch (error) {
+  //     console.error("Error saving ride details to history collection: ", error);
+  //   }
+  // };
+
   const saveToHistory = async () => {
     try {
-      await firebase.firestore().collection('history').doc(requestId).set(requestData);
-      console.log("Ride details saved to history collection.");
-      await AsyncStorage.setItem(`successfulButtonClicked_${requestId}`, 'true'); // Set flag in AsyncStorage with a unique key
-      setSuccessfulButtonClicked(true); // Set buttonClicked state to true after successful save
-      // Alert when the successful button is clicked
-      Alert.alert("Success", "Your ride is officially ended.");
-      
+
+          // Get the current timestamp
+    const currentTime = firebase.firestore.Timestamp.now();
+      // Show confirmation alert before saving
+      Alert.alert(
+        "Confirm",
+        "Are you sure you want to end your ride?",
+        [
+          {
+            text: "Cancel",
+            style: "cancel"
+          },
+          {
+            text: "Confirm",
+            onPress: async () => {
+              // Save ride details to history collection
+              // await firebase.firestore().collection('history').doc(requestId).set(requestData);
+              await firebase.firestore().collection('history').doc(requestId).set({
+                ...requestData,
+                rideEnded: currentTime,  // Add rideEnded field with the current time\
+                successful: true  //Add successful field w/ boolean
+              });
+              console.log("Ride details saved to history collection.");
+
+              // Update the "successful" field in the "acceptedRequest" collection
+              await firebase.firestore().collection('acceptedRequest').doc(requestId).update({
+                successful: true
+              });
+  
+              // Set flag in AsyncStorage with a unique key
+              await AsyncStorage.setItem(`successfulButtonClicked_${requestId}`, 'true');
+              
+              // Set buttonClicked state to true after successful save
+              setSuccessfulButtonClicked(true);
+  
+              // Show success alert
+              Alert.alert("Success", "Your ride is officially ended.");
+              // navigation.goBack();
+              navigation.navigate('Notification')
+
+              
+            }
+          }
+        ],
+        { cancelable: false }
+      );
     } catch (error) {
       console.error("Error saving ride details to history collection: ", error);
     }

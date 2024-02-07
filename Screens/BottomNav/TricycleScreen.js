@@ -775,8 +775,8 @@ const TricycleScreen = () => {
           } else {
             // If no user found, set default user data
             setUserData({
-              name: 'Guest',
-              contactNumber: 'Guest',
+              name: 'Kyle Vincent Manuel',
+              contactNumber: '+639185299893',
             });
           }
         })
@@ -786,8 +786,8 @@ const TricycleScreen = () => {
     } else {
       // If no phone number is present, set default userData
       setUserData({
-        name: 'Guest',
-        contactNumber: 'Guest',
+        name: 'Kyle Vincent Manuel',
+        contactNumber: '+639185299893',
       });
     }
 
