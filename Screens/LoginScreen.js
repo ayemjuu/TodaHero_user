@@ -99,8 +99,8 @@ const PassengerScreen = () => {
       if (error.code === 'auth/cancelled-popup-request') {
         console.log('User cancelled the verification process.');
       } else {
-        console.error('Error during verification:', error);
-        alert('Error during verification. Please try again.');
+        // console.error('Error during verification:', error);
+        // alert('Error during verification. Please try again.');
       }
     }
   };
@@ -178,7 +178,7 @@ const PassengerScreen = () => {
         maxLength={13}
       />
 
-      <TouchableOpacity style={styles.sendVerification} onPress={sendVerification}>
+      <TouchableOpacity style={styles.sendVerification} onPress={sendVerification}  disabled={phoneNumber.trim() === ''} >
         <Text style={styles.buttonText}>Generate OTP</Text>
       </TouchableOpacity>
 
@@ -190,7 +190,7 @@ const PassengerScreen = () => {
         maxLength={6}
       />
 
-      <TouchableOpacity style={styles.sendCode} onPress={confirmCode}>
+      <TouchableOpacity style={styles.sendCode} onPress={confirmCode} disabled={phoneNumber.trim() === '' || code.trim() === ''}>
         <Text style={styles.buttonText}>Verify and Confirm </Text>
       </TouchableOpacity>
     </View>
@@ -221,13 +221,13 @@ const styles = StyleSheet.create({
   },
   sendVerification: {
     padding: 20,
-    backgroundColor: '#5272F2',
+    backgroundColor: '#ffd702',
     borderRadius: 10,
     width: 180
   },
   sendCode: {
     padding: 20,
-    backgroundColor: '#5272F2',
+    backgroundColor: '#ffd702',
     borderRadius: 10,
     width: 180
   },

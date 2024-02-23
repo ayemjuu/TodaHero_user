@@ -147,6 +147,10 @@ import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
+import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+
 const UserScreen = () => {
   const navigation = useNavigation();
   const [userData, setUserData] = useState(null);
@@ -214,10 +218,10 @@ const UserScreen = () => {
         {userData && (
           <View>
             <Text style={styles.title}>USER ACCOUNT </Text>
-            <Text style={styles.name}>{userData.name}</Text>
+            <Text style={styles.name}><AntDesign name="user" size={20} color="black" /> - {userData.name}</Text>
             <Text style={styles.address}>({userData.username}) </Text>
-            <Text style={styles.contactNumber}>{userData.contactNumber}</Text>
-            <Text style={styles.address}>{userData.address}</Text>
+            <Text style={styles.contactNumber}><AntDesign name="phone" size={20} color="black" /> - {userData.contactNumber}</Text>
+            <Text style={styles.address}><AntDesign name="home" size={20} color="black" /> - {userData.address}</Text>
           </View>
         )}
 
@@ -239,8 +243,8 @@ const styles = StyleSheet.create({
   seccontainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'pink',
-    height: 500,
+    backgroundColor: '#ffd702',
+    height: 300,
     width: 300,
     marginTop: -30,
     borderRadius:10
@@ -249,7 +253,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
     padding: 10,
     borderRadius: 50,
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 20,
+
     borderWidth: 1,
     height: 50,
     alignItems: 'center',
@@ -263,30 +269,30 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom:10
   },
   contactNumber: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom:10
   },
   address: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom:10
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     textAlign: 'center',
-   marginTop:-160,
-   marginBottom:40
+   marginTop:10,
+   marginBottom:30
   },
   logo: {
     width: 210,
     height: 210,
-    marginBottom: 10,
-    marginTop: -50,
+    marginBottom: 120,
+    marginTop: -200,
   },
 });
 

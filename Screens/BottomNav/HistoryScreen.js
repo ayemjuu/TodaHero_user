@@ -47,7 +47,10 @@ const HistoryScreen = () => {
             // console.log(data);
 
               setHistoryData(data);
-
+              // console.log("Number of history items:", data.length);
+              // data.forEach(item => {
+              //   // console.log("History item:", item.id, "Read:", item.read); // Log each history item's ID and "read" value
+              // });
             });
 
           return () => {
@@ -186,7 +189,7 @@ const HistoryScreen = () => {
                 <Text style={styles.itemText}>Ride Complete!</Text>
 
                   <View style={styles.driverContainer}>
-                    <Text style={styles.driverName}>{historyItem.driverName} (Driver name)</Text>
+                    <Text style={styles.driverName}>{historyItem.driverName}</Text>
                   </View>
 
                   <View style={styles.timeContainer}>
@@ -253,7 +256,7 @@ const styles = StyleSheet.create({
   seccontainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: '#ffd702',
     height: 500,
     width: 300,
     marginTop: -30,
@@ -263,7 +266,7 @@ const styles = StyleSheet.create({
   text: {
     // fontSize: 30,
     // marginBottom: 30,
-    fontSize: 30,
+    fontSize: 25,
     marginBottom: 10,
     marginTop:20
     
@@ -290,7 +293,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 35,
    
-    marginRight:155
+    marginRight:165
   },
 
   timeContainer: {

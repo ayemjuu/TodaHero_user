@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   seccontainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: '#ffd702',
     height: 500,
     width: 300,
     marginTop: -30,

@@ -6,6 +6,10 @@ import LoginScreen from './Screens/LoginScreen';
 import LoadingScreen from './Screens/LoadingScreen';
 import NotificationDetailScreen from './Screens/BottomNav/NotificationDetailScreen';
 import HistoryDetailScreen from './Screens/BottomNav/HistoryDetailScreen'
+import BookingScreen from './Screens/BottomNav/BookingScreen';
+import BookingDetailScreen from './Screens/BottomNav/BookingDetailScreen';
+import TrackScreen from './Screens/BottomNav/TrackScreen';
+import ReportScreen from './Screens/BottomNav/ReportScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +26,12 @@ const App = () => {
 
         <Stack.Screen name="NotificationDetail" component={NotificationDetailScreen} />
         <Stack.Screen name="HistoryDetail" component={HistoryDetailScreen} />
+        <Stack.Screen name="Bookings" component={BookingScreen} />
+        <Stack.Screen name="BookingDetail" component={BookingDetailScreen} />
+        <Stack.Screen name="TrackScreen" component={TrackScreen} />
+        <Stack.Screen name="ReportScreen" component={ReportScreen} />
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );
