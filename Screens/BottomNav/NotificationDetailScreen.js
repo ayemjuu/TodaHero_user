@@ -509,6 +509,9 @@ import { firebase } from '../../config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
+import { Ionicons } from '@expo/vector-icons';
+
+
 const NotificationDetailScreen = ({ route }) => {
   const { userName } = route.params;
   const { requestId } = route.params;
@@ -516,18 +519,47 @@ const NotificationDetailScreen = ({ route }) => {
   const [successfulButtonClicked, setSuccessfulButtonClicked] = useState(false);
   const [loading, setLoading] = useState(false); // Loading state for the successful button
   const navigation = useNavigation();
+  
 
 
-  useEffect(() => {
-    console.log("Useasr's name:", userName);
-  }, [userName]);
+  // useEffect(() => {
+  //   console.log("Useasr's name:", userName);
+  // }, [userName]);
 
+  // useEffect(() => {
+  //   const fetchRequestData = async () => {
+  //     try {
+  //       const doc = await firebase.firestore().collection('acceptedRequest').doc(requestId).get();
+  //       if (doc.exists) {
+  //         setRequestData(doc.data());
+  //       } else {
+  //         console.log("No such document!");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching document: ", error);
+  //     }
+  //   };
+
+  //   fetchRequestData();
+
+  //   return () => {
+  //     setRequestData(null);
+  //   };
+  // }, [requestId]);
+
+//lalabas lang successful button kapag alang successful field sa firebase
   useEffect(() => {
     const fetchRequestData = async () => {
       try {
         const doc = await firebase.firestore().collection('acceptedRequest').doc(requestId).get();
         if (doc.exists) {
-          setRequestData(doc.data());
+          const requestData = doc.data();
+          setRequestData(requestData);
+          if (requestData.successful === undefined) { // Check if the 'successful' field is undefined
+            setSuccessfulButtonClicked(false); // Enable the Successful button
+          } else {
+            setSuccessfulButtonClicked(true); // Disable the Successful button
+          }
         } else {
           console.log("No such document!");
         }
@@ -535,13 +567,14 @@ const NotificationDetailScreen = ({ route }) => {
         console.error("Error fetching document: ", error);
       }
     };
-
+  
     fetchRequestData();
-
+  
     return () => {
       setRequestData(null);
     };
   }, [requestId]);
+  
 
   useEffect(() => {
     const checkButtonClicked = async () => {
@@ -626,6 +659,10 @@ const NotificationDetailScreen = ({ route }) => {
     <View style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.logo}/>
       <View style={styles.seccontainer}>
+      <TouchableOpacity onPress={() => navigation.navigate('Notification')} style={styles.backButton}>
+          {/* <Text style={styles.backButton}>asd<Ionicons name="arrow-back-sharp" size={35} color="black" /></Text> */}
+          <Ionicons name="arrow-back-sharp" size={35} color="black" />
+       </TouchableOpacity>
         <Text style={styles.text}>YOUR RIDE DETAILS:</Text>
         {requestData ? (
           <View>
@@ -653,15 +690,18 @@ const NotificationDetailScreen = ({ route }) => {
             <Text style={styles.buttonText}>Report</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
+          {/* <TouchableOpacity 
             style={styles.button} 
             onPress={() => navigation.navigate('TrackScreen')}>
             <Text style={styles.buttonText}>Track</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           
         </View>
         <Text style={styles.check}>Check your items first before clicking successful button:</Text>
       </View>
+      {/* <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
+          <Text style={styles.backButton}>Back to Admin</Text>
+       </TouchableOpacity> */}
     </View>
   );
 };
@@ -717,6 +757,12 @@ const styles = StyleSheet.create({
   buttonText:{
     textAlign:'center'
   },
+ 
+  backButton: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+   },
 });
 
 export default NotificationDetailScreen;

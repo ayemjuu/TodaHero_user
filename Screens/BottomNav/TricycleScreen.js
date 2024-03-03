@@ -514,7 +514,7 @@
 //SAVE!!!!
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ActivityIndicator, BackHandler  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase/compat';
 import 'firebase/firestore';
@@ -526,6 +526,17 @@ const TricycleScreen = () => {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null); // State to hold user data
   const navigation = useNavigation();
+
+
+    // Disable hardware back button when TricycleScreen is focused
+    useEffect(() => {
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        // Disable back button functionality
+        return true;
+      });
+  
+      return () => backHandler.remove();
+    }, []);
 
   const handleMyBookings = () => {
     navigation.navigate('Bookings'); // Navigate to MyBookings screen
@@ -701,7 +712,8 @@ const styles = StyleSheet.create({
     height: 500,
     width: 300,
     marginTop: -30,
-    borderRadius:10
+    borderRadius:10,
+    padding:20
   },
   text: {
     fontSize: 25,

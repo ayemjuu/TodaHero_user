@@ -346,12 +346,16 @@
 // export default BookingDetailScreen;
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, Button, Alert, TouchableOpacity } from 'react-native';
 import { firebase } from '../../config'; // Import your firebase object
+import { useNavigation } from '@react-navigation/native';
+
 
 const BookingDetailScreen = ({ route, navigation }) => {
   const [bookingDetails, setBookingDetails] = useState(null);
   const [bookingCanceled, setBookingCanceled] = useState(false); // State to track if booking is canceled
+  // const navigation = useNavigation(); // Initialize navigation
+
 
   useEffect(() => {
     const { bookingId } = route.params; // Get the booking ID from route params
@@ -424,8 +428,8 @@ const BookingDetailScreen = ({ route, navigation }) => {
               <Text style={styles.label}>Drop-Off Point:</Text>
               <Text style={styles.value}>{bookingDetails.dropOffPoint}</Text>
 
-              <Text style={styles.label}>number:</Text>
-              <Text style={styles.value}>{bookingDetails.userContactNumber}</Text>
+              {/* <Text style={styles.label}>number:</Text>
+              <Text style={styles.value}>{bookingDetails.userContactNumber}</Text> */}
 
               {/* <Text style={styles.label}>Status:</Text> */}
               {/* <Text style={styles.value}>{bookingDetails.status ? 'Cancelled' : 'Complete'}</Text> */}
@@ -439,6 +443,9 @@ const BookingDetailScreen = ({ route, navigation }) => {
             <Text>No booking details found.</Text>
           )}
         </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.backButton}>Back to Admin</Text>
+       </TouchableOpacity>
     </View>
   );
 };
@@ -463,6 +470,11 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 16,
     marginBottom: 15,
+  },
+  backButton: {
+    fontSize: 18,
+    color: 'blue',
+    marginTop: 20,
   },
 });
 

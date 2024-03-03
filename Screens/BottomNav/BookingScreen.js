@@ -237,10 +237,14 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import { firebase } from '../../config'; // Import your firebase object
 
+import { Ionicons } from '@expo/vector-icons';
+
+
 const MyBookingsScreen = () => {
   const navigation = useNavigation(); // Initialize navigation object
   const [bookingIds, setBookingIds] = useState([]);
   const [userContact, setUserContact] = useState('');
+  
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
@@ -321,6 +325,10 @@ useEffect(() => {
     <View style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.logo} />
       <View style={styles.seccontainer}>
+      <TouchableOpacity onPress={() => navigation.navigate('Tricycle')} style={styles.backButton}>
+          {/* <Text style={styles.backButton}>asd<Ionicons name="arrow-back-sharp" size={35} color="black" /></Text> */}
+          <Ionicons name="arrow-back-sharp" size={35} color="black" />
+       </TouchableOpacity>
         <Text style={styles.header}>BOOKINGS</Text>
         <FlatList
           data={bookingIds}
@@ -337,6 +345,9 @@ useEffect(() => {
           keyExtractor={item => item.id}
         />
       </View>
+      {/* <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
+          <Text style={styles.backButton}>Back to Admin</Text>
+       </TouchableOpacity> */}
     </View>
   );
 };
@@ -403,6 +414,11 @@ const styles = StyleSheet.create({
     left: 10, // Position it 10 units from the left
     color: 'black',
   },
+  backButton: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+   },
 });
 
 export default MyBookingsScreen;

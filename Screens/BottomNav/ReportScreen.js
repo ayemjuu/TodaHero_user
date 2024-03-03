@@ -274,14 +274,21 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, Button, Alert, Image, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, Alert, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { firebase } from '../../config'; // Import Firebase configuration
+import { useNavigation } from '@react-navigation/native';
+
+import { Ionicons } from '@expo/vector-icons';
+
+
 
 const ReportScreen = ({ route }) => {
   const { driverName, driverPlateNumber, userName } = route.params;
   const [report, setReport] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Loading state for report submission
   const [currentUser, setCurrentUser] = useState(null); // State to store current user data
+  const navigation = useNavigation(); // Initialize navigation
+
 
   useEffect(() => {
     // Fetch currently logged-in user's information
@@ -330,13 +337,14 @@ const ReportScreen = ({ route }) => {
                 setIsLoading(true); // Set loading to true when submitting report
                 // Save report data to Firebase Firestore
                 await firebase.firestore().collection('Report').add({
-                  driverName,
-                  driverPlateNumber,
+                  // driverName,
+                  reported: driverName, 
+                  // driverPlateNumber,
                   report,
-                  timestamp: firebase.firestore.Timestamp.now(),
+                  timeReported: firebase.firestore.Timestamp.now(),
                 //   userName: currentUser.displayName, // Add current user's name to the report
-                  userContact: currentUser.phoneNumber, // Add current user's contact number to the report
-                  reporterName: userName 
+                  // userContact: currentUser.phoneNumber, // Add current user's contact number to the report
+                  reportedBy: userName 
                 });
                 Alert.alert('Success', 'Report submitted successfully.');
                 // Clear input field after submission
@@ -362,6 +370,10 @@ const ReportScreen = ({ route }) => {
     <View style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.logo} />
       <View style={styles.seccontainer}>
+      <TouchableOpacity onPress={() => navigation.navigate('NotificationDetail')} style={styles.backButton}>
+          {/* <Text style={styles.backButton}>asd<Ionicons name="arrow-back-sharp" size={35} color="black" /></Text> */}
+          <Ionicons name="arrow-back-sharp" size={35} color="black" />
+       </TouchableOpacity>
         <Text style={styles.text}>Report Screen</Text>
         <Text>Driver Name: {driverName}</Text>
         <Text>Driver Plate Number: {driverPlateNumber}</Text>
@@ -380,6 +392,9 @@ const ReportScreen = ({ route }) => {
           <Button title="Report" onPress={handleReportSubmit} disabled={!report.trim()} />
         )}
       </View>
+      {/* <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
+          <Text style={styles.backButton}>Back to Admin</Text>
+       </TouchableOpacity> */}
     </View>
   );
 };
@@ -423,6 +438,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: -50,
   },
+  backButton: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+   },
 });
 
 export default ReportScreen;
