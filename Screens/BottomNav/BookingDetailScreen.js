@@ -346,12 +346,16 @@
 // export default BookingDetailScreen;
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button, Alert, TouchableOpacity, Image } from 'react-native';
 import { firebase } from '../../config'; // Import your firebase object
 import { useNavigation } from '@react-navigation/native';
 
+import { Ionicons } from '@expo/vector-icons';
+
+
 
 const BookingDetailScreen = ({ route, navigation }) => {
+  
   const [bookingDetails, setBookingDetails] = useState(null);
   const [bookingCanceled, setBookingCanceled] = useState(false); // State to track if booking is canceled
   // const navigation = useNavigation(); // Initialize navigation
@@ -416,7 +420,14 @@ const BookingDetailScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Image source={require('../../assets/logo.png')} style={styles.logo} />
+
       <View style={styles.seccontainer}>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Bookings')} style={styles.backButton}>
+          {/* <Text style={styles.backButton}>asd<Ionicons name="arrow-back-sharp" size={35} color="black" /></Text> */}
+          <Ionicons name="arrow-back-sharp" size={35} color="black" />
+       </TouchableOpacity>
           {bookingDetails ? (
             <>
               {/* <Text style={styles.label}>Booking ID:</Text>
@@ -443,9 +454,9 @@ const BookingDetailScreen = ({ route, navigation }) => {
             <Text>No booking details found.</Text>
           )}
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Text style={styles.backButton}>Back to Admin</Text>
-       </TouchableOpacity>
+       </TouchableOpacity> */}
     </View>
   );
 };
@@ -455,12 +466,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   seccontainer:{
-    backgroundColor:'pink',
-    marginTop:200,
-    padding:20
+    backgroundColor:'#ffd702',
+    height: '40%',
+    width: '90%',
+    // marginTop:20,
+    padding:40
   },
   label: {
     fontSize: 16,
@@ -476,6 +491,17 @@ const styles = StyleSheet.create({
     color: 'blue',
     marginTop: 20,
   },
+  logo: {
+    width: 210,
+    height: 210,
+    marginBottom: 0,
+    marginTop: -50,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+   },
 });
 
 export default BookingDetailScreen;

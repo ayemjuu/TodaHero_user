@@ -298,8 +298,8 @@ const ReportScreen = ({ route }) => {
         if (user) {
           // User is signed in
           setCurrentUser(user);
-          console.log('Current User Name:', user.displayName);
-          console.log('Current User Contact Number:', user.phoneNumber);
+          // console.log('Current User Name:', user.displayName);
+          // console.log('Current User Contact Number:', user.phoneNumber);
         } else {
           // No user is signed in
           console.log('No user signed in.');
@@ -347,6 +347,7 @@ const ReportScreen = ({ route }) => {
                   reportedBy: userName 
                 });
                 Alert.alert('Success', 'Report submitted successfully.');
+                navigation.navigate('Notification');
                 // Clear input field after submission
                 setReport('');
               } catch (error) {

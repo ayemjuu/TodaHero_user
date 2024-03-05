@@ -513,8 +513,16 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 const NotificationDetailScreen = ({ route }) => {
-  const { userName } = route.params;
-  const { requestId } = route.params;
+
+  console.log("Route params:", route.params);
+
+  // const { userName } = route.params;
+  // const { requestId } = route.params;
+
+  const { userName, requestId } = route.params || {};
+  console.log("User name:", userName); // Check if userName is properly extracted
+  console.log("Request ID:", requestId);
+
   const [requestData, setRequestData] = useState(null);
   const [successfulButtonClicked, setSuccessfulButtonClicked] = useState(false);
   const [loading, setLoading] = useState(false); // Loading state for the successful button
