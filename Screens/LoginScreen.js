@@ -329,8 +329,8 @@ const PassengerScreen = () => {
       if (error.code === 'auth/cancelled-popup-request') {
         console.log('User cancelled the verification process.');
       } else {
-        console.error('Error during verification:', error);
-        alert('Error during verification. Please try again.');
+        // console.error('Error during verification:', error);
+        // alert('Error during verification. Please try again.');
       }
     } finally {
       setLoadingGenerateOTP(false); // Stop loading Generate OTP

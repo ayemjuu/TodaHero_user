@@ -219,7 +219,7 @@ const UserScreen = () => {
           <View>
             <Text style={styles.title}>USER ACCOUNT </Text>
             <Text style={styles.name}><AntDesign name="user" size={20} color="black" /> - {userData.name}</Text>
-            <Text style={styles.address}>({userData.username}) </Text>
+            {/* <Text style={styles.address}>({userData.username}) </Text> */}
             <Text style={styles.contactNumber}><AntDesign name="phone" size={20} color="black" /> - {userData.contactNumber}</Text>
             <Text style={styles.address}><AntDesign name="home" size={20} color="black" /> - {userData.address}</Text>
           </View>
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     width: 210,
     height: 210,
     marginBottom: 120,
-    marginTop: -200,
+    marginTop: -140,
   },
 });
 

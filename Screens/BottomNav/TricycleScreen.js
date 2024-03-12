@@ -677,7 +677,7 @@ const TricycleScreen = () => {
           onChangeText={(text) => setDropOffPoint(text)}
         />
 
-        <Text style={styles.textDriver}>{`Plate Number: ${plateNumber}`}</Text>
+        <Text style={styles.textDriver}>{`TODA Number: ${plateNumber}`}</Text>
         
         
             <TouchableOpacity style={styles.button} onPress={handlePasakay}>
