@@ -325,6 +325,7 @@ const PassengerScreen = () => {
       const verificationId = await phoneProvider.verifyPhoneNumber(phoneNumber, recaptchaVerifier.current);
       setVerificationId(verificationId);
       console.log('Entered number:', phoneNumber);
+      Alert.alert('OTP Sent', 'Please check your phone for the verification code.');
     } catch (error) {
       if (error.code === 'auth/cancelled-popup-request') {
         console.log('User cancelled the verification process.');

@@ -339,7 +339,7 @@ const ReportScreen = ({ route }) => {
                 await firebase.firestore().collection('Report').add({
                   // driverName,
                   reported: driverName, 
-                  // driverPlateNumber,
+                  todaNumber: driverPlateNumber,
                   report,
                   timeReported: firebase.firestore.Timestamp.now(),
                 //   userName: currentUser.displayName, // Add current user's name to the report

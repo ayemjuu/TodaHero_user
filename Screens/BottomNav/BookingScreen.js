@@ -930,7 +930,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   header: {
-    fontSize: 30,
+    fontSize: 25,
     marginBottom: 10,
     marginTop: 20,
   },

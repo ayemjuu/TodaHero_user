@@ -555,7 +555,7 @@ const TricycleScreen = () => {
           const firstPlateNumber = data.plateNumber;
           setPlateNumber(firstPlateNumber);
         } else {
-          setPlateNumber('No active drivers');
+          setPlateNumber(' ');
         }
       });
 
@@ -678,8 +678,6 @@ const TricycleScreen = () => {
         />
 
         <Text style={styles.textDriver}>{`TODA Number: ${plateNumber}`}</Text>
-        
-        
             <TouchableOpacity style={styles.button} onPress={handlePasakay}>
               {loading ? (
                 <ActivityIndicator size="small" color="black" />

@@ -1247,7 +1247,7 @@ const formatTimestampaa = timestamp => {
           {!successfulButtonClicked && (
             <TouchableOpacity style={styles.button} onPress={handleSuccessfulButtonClick}>
               {loading ? (
-                <ActivityIndicator size="small" color="#ffffff" />
+                <ActivityIndicator size="small" color="black" />
               ) : (
                 <Text style={styles.buttonText}>Successful</Text>
               )}

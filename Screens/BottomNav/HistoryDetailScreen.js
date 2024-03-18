@@ -389,7 +389,7 @@ const HistoryDetailScreen = ({ route }) => {
             <Text style={styles.details}>Requested By: {historyItem.requestBy}</Text>
             <Text style={styles.details}>Time Requested: {historyItem.timeRequested}</Text>
             {/* <Text style={styles.details}>Time Accepted: {formatTimestamp(historyItem.timeAccepted)}</Text> */}
-            {/* <Text style={styles.details}>Time Accepted: {historyItem.timeAccepted}</Text> */}
+            <Text style={styles.details}>Time Accepted: {historyItem.timeAccepted}</Text>
 
 
 
