@@ -661,7 +661,7 @@ const TricycleScreen = () => {
     <View style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.logo} />
       <View style={styles.seccontainer}>
-        <Text style={styles.text}>BOOK NOW!!</Text>
+        <Text style={styles.text}>BOOK</Text>
 
         <TextInput
           style={styles.input}
@@ -729,6 +729,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginBottom: 20,
     paddingLeft: 20,
+    paddingRight: 20,
     fontSize: 15,
   },
   button: {

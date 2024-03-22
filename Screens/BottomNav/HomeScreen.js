@@ -499,7 +499,7 @@ const styles = StyleSheet.create({
     padding:20
   },
   text: {
-    fontSize: 25,
+    fontSize: 23,
     marginTop: 20,
     marginBottom: 30,
   },

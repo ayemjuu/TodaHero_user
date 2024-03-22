@@ -1119,7 +1119,13 @@ const NotificationDetailScreen = ({ route }) => {
   if (!timestamp) return null;
   if (timestamp.toDate) {
     const date = timestamp.toDate();
-    return date.toLocaleString('en-US', {  year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
+    return date.toLocaleString('en-US', {  
+      month: 'long', 
+      day: 'numeric',
+      year: 'numeric',
+  }) + " at " + date.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false});
+  
+    // return date.toLocaleString('en-US', {  year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', seconds: 'numeric', hour12: false });
   } else if (timestamp instanceof Date) {
     return timestamp.toLocaleString('en-US', {  year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
   } else {
@@ -1281,7 +1287,7 @@ const styles = StyleSheet.create({
     borderRadius:10
   },
   text: {
-    fontSize: 25,
+    fontSize: 20,
     marginBottom: 50,
     marginTop:10,
   },
